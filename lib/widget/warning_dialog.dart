@@ -49,7 +49,10 @@ class WarningDialog extends StatelessWidget {
           const Text(
             "GAGAL",
             style: TextStyle(
-                fontSize: 24.0, fontWeight: FontWeight.w700, color: Colors.red),
+                fontSize: 24.0,
+                fontWeight: FontWeight.w700,
+                color: Color.fromARGB(255, 54, 54, 54),
+                fontFamily: 'Georgia'),
           ),
           const SizedBox(height: 16.0),
           Text(

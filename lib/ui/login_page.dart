@@ -16,27 +16,42 @@ class _LoginPageState extends State<LoginPage> {
   bool _isLoading = false;
   final _emailTextboxController = TextEditingController();
   final _passwordTextboxController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        title: const Text(
+          'Login',
+          style: TextStyle(fontFamily: 'Georgia', color: Colors.white),
+        ),
+        backgroundColor: const Color.fromARGB(255, 125, 125, 125),
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                _emailTextField(),
-                _passwordTextField(),
-                _buttonLogin(),
-                const SizedBox(
-                  height: 30,
+          child: Center(
+            child: Card(
+              color: const Color.fromARGB(255, 220, 220, 220),
+              elevation: 4.0,
+              margin: const EdgeInsets.all(12.0),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      _emailTextField(),
+                      const SizedBox(height: 16),
+                      _passwordTextField(),
+                      const SizedBox(height: 16),
+                      _buttonLogin(),
+                      const SizedBox(height: 30),
+                      _menuRegistrasi(),
+                    ],
+                  ),
                 ),
-                _menuRegistrasi()
-              ],
+              ),
             ),
           ),
         ),
@@ -44,14 +59,24 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-//Membuat Textbox email
+// Membuat Textbox email
   Widget _emailTextField() {
     return TextFormField(
-      decoration: const InputDecoration(labelText: "Email"),
+      decoration: const InputDecoration(
+        labelText: "Email",
+        labelStyle: TextStyle(color: Colors.black, fontFamily: 'Georgia'),
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.black),
+        ),
+        errorStyle: const TextStyle(
+          color: Color.fromARGB(255, 181, 38, 27), // Warna pesan error
+          fontFamily: 'Georgia', // Mengubah font pesan error menjadi Georgia
+        ),
+      ),
       keyboardType: TextInputType.emailAddress,
       controller: _emailTextboxController,
+      style: const TextStyle(color: Colors.black, fontFamily: 'Georgia'),
       validator: (value) {
-//validasi harus diisi
         if (value!.isEmpty) {
           return 'Email harus diisi';
         }
@@ -60,15 +85,25 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-//Membuat Textbox password
+// Membuat Textbox password
   Widget _passwordTextField() {
     return TextFormField(
-      decoration: const InputDecoration(labelText: "Password"),
+      decoration: const InputDecoration(
+        labelText: "Password",
+        labelStyle: TextStyle(color: Colors.black, fontFamily: 'Georgia'),
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.black),
+        ),
+        errorStyle: const TextStyle(
+          color: Color.fromARGB(255, 181, 38, 27), // Warna pesan error
+          fontFamily: 'Georgia', // Mengubah font pesan error menjadi Georgia
+        ),
+      ),
       keyboardType: TextInputType.text,
       obscureText: true,
       controller: _passwordTextboxController,
+      style: const TextStyle(color: Colors.black, fontFamily: 'Georgia'),
       validator: (value) {
-//jika karakter yang dimasukkan kurang dari 6 karakter
         if (value!.isEmpty) {
           return "Password harus diisi";
         }
@@ -77,17 +112,23 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-//Membuat Tombol Login
-//Membuat Tombol Login
+// Membuat Tombol Login
   Widget _buttonLogin() {
     return ElevatedButton(
-        child: const Text("Login"),
-        onPressed: () {
-          var validate = _formKey.currentState!.validate();
-          if (validate) {
-            if (!_isLoading) _submit();
-          }
-        });
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.black, // Background color
+      ),
+      child: const Text(
+        "Login",
+        style: TextStyle(color: Colors.white, fontFamily: 'Georgia'),
+      ),
+      onPressed: () {
+        var validate = _formKey.currentState!.validate();
+        if (validate) {
+          if (!_isLoading) _submit();
+        }
+      },
+    );
   }
 
   void _submit() {
@@ -131,8 +172,12 @@ class _LoginPageState extends State<LoginPage> {
     return Center(
       child: InkWell(
         child: const Text(
-          "Registrasi",
-          style: TextStyle(color: Colors.blue),
+          "Klik Untuk Registrasi",
+          style: TextStyle(
+            decoration: TextDecoration.underline,
+            color: Colors.black,
+            fontFamily: 'Georgia',
+          ),
         ),
         onTap: () {
           Navigator.push(context,

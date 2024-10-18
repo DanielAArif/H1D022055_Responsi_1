@@ -19,24 +19,60 @@ class _PemanduWisataDetailState extends State<PemanduWisataDetail> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Detail Pemandu Wisata'),
+        backgroundColor: const Color.fromARGB(255, 125, 125, 125),
+        titleTextStyle: const TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+          fontFamily: 'Georgia',
+        ), // Judul warna putih
       ),
       body: Center(
-        child: Column(
-          children: [
-            Text(
-              "Nama Guide : ${widget.pemanduWisata!.guide}",
-              style: const TextStyle(fontSize: 20.0),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Card(
+            color: Colors.grey[200], // Warna card
+            elevation: 8, // Tambahkan bayangan pada card besar
+            margin: const EdgeInsets.all(10),
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min, // Agar card menyesuaikan konten
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Menampilkan informasi Nama Guide, Languages, dan Rating dalam satu card
+                  Text(
+                    "Nama Guide : ${widget.pemanduWisata!.guide}",
+                    style: const TextStyle(
+                      fontSize: 18.0,
+                      color: Colors.black,
+                      fontFamily: 'Georgia',
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    "Languages : ${widget.pemanduWisata!.languages}",
+                    style: const TextStyle(
+                      fontSize: 18.0,
+                      color: Colors.black,
+                      fontFamily: 'Georgia',
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    "Rating : ${widget.pemanduWisata!.rating}",
+                    style: const TextStyle(
+                      fontSize: 18.0,
+                      color: Colors.black,
+                      fontFamily: 'Georgia',
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  // Tombol Edit dan Delete berada di tengah card secara horizontal
+                  Center(child: _tombolHapusEdit()),
+                ],
+              ),
             ),
-            Text(
-              "Languages : ${widget.pemanduWisata!.languages}",
-              style: const TextStyle(fontSize: 18.0),
-            ),
-            Text(
-              "Rating : ${widget.pemanduWisata!.rating}",
-              style: const TextStyle(fontSize: 18.0),
-            ),
-            _tombolHapusEdit()
-          ],
+          ),
         ),
       ),
     );
@@ -44,11 +80,12 @@ class _PemanduWisataDetailState extends State<PemanduWisataDetail> {
 
   Widget _tombolHapusEdit() {
     return Row(
-      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center, // Tombol di tengah card
       children: [
-// Tombol Edit
+        // Tombol Edit
         OutlinedButton(
-          child: const Text("EDIT"),
+          child: Text("EDIT"),
+          style: OutlinedButton.styleFrom(foregroundColor: Colors.black),
           onPressed: () {
             Navigator.push(
               context,
@@ -60,9 +97,13 @@ class _PemanduWisataDetailState extends State<PemanduWisataDetail> {
             );
           },
         ),
-// Tombol Hapus
+        const SizedBox(width: 10),
+        // Tombol Hapus
         OutlinedButton(
           child: const Text("DELETE"),
+          style: OutlinedButton.styleFrom(
+            foregroundColor: Colors.black,
+          ),
           onPressed: () => confirmHapus(),
         ),
       ],
@@ -73,15 +114,19 @@ class _PemanduWisataDetailState extends State<PemanduWisataDetail> {
     AlertDialog alertDialog = AlertDialog(
       content: const Text("Yakin ingin menghapus data ini?"),
       actions: [
-//tombol hapus
+        // Tombol hapus
         OutlinedButton(
           child: const Text("Ya"),
+          style: OutlinedButton.styleFrom(
+            foregroundColor: Colors.black, // Warna teks hitam
+          ),
           onPressed: () {
-            PemanduWisataBloc.deletePemanduWisata(id: widget.pemanduWisata!.id!).then(
-                (value) => {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const PemanduWisataPage()))
-                    }, onError: (error) {
+            PemanduWisataBloc.deletePemanduWisata(id: widget.pemanduWisata!.id!)
+                .then(
+                    (value) => {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const PemanduWisataPage()))
+                        }, onError: (error) {
               showDialog(
                   context: context,
                   builder: (BuildContext context) => const WarningDialog(
@@ -90,9 +135,12 @@ class _PemanduWisataDetailState extends State<PemanduWisataDetail> {
             });
           },
         ),
-//tombol batal
+        // Tombol batal
         OutlinedButton(
           child: const Text("Batal"),
+          style: OutlinedButton.styleFrom(
+            foregroundColor: Colors.black, // Warna teks hitam
+          ),
           onPressed: () => Navigator.pop(context),
         )
       ],

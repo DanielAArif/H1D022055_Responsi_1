@@ -5,6 +5,7 @@ import 'package:h1d022055_responsi1/widget/warning_dialog.dart';
 
 class RegistrasiPage extends StatefulWidget {
   const RegistrasiPage({Key? key}) : super(key: key);
+
   @override
   _RegistrasiPageState createState() => _RegistrasiPageState();
 }
@@ -15,26 +16,46 @@ class _RegistrasiPageState extends State<RegistrasiPage> {
   final _namaTextboxController = TextEditingController();
   final _emailTextboxController = TextEditingController();
   final _passwordTextboxController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Registrasi"),
+        titleTextStyle: const TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontFamily: 'Georgia'), // Judul warna putih
+        backgroundColor: const Color.fromARGB(255, 125, 125, 125),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _namaTextField(),
-                _emailTextField(),
-                _passwordTextField(),
-                _passwordKonfirmasiTextField(),
-                _buttonRegistrasi()
-              ],
+          padding: const EdgeInsets.all(16.0),
+          child: Center(
+            child: Card(
+              color: const Color.fromARGB(255, 220, 220, 220),
+              elevation: 5,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _namaTextField(),
+                      const SizedBox(height: 16),
+                      _emailTextField(),
+                      const SizedBox(height: 16),
+                      _passwordTextField(),
+                      const SizedBox(height: 16),
+                      _passwordKonfirmasiTextField(),
+                      const SizedBox(
+                          height: 24),
+                      _buttonRegistrasi(),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ),
         ),
@@ -42,10 +63,25 @@ class _RegistrasiPageState extends State<RegistrasiPage> {
     );
   }
 
-//Membuat Textbox Nama
+  // Membuat Textbox Nama
   Widget _namaTextField() {
     return TextFormField(
-      decoration: const InputDecoration(labelText: "Nama"),
+      decoration: InputDecoration(
+        labelText: "Nama",
+        labelStyle: const TextStyle(
+            color: Color.fromARGB(255, 0, 0, 0), fontFamily: 'Georgia'),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey),
+        ),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.black),
+        ),
+        errorStyle: const TextStyle(
+          color: Color.fromARGB(255, 181, 38, 27), // Warna pesan error
+          fontFamily: 'Georgia', // Mengubah font pesan error menjadi Georgia
+        ),
+      ),
+      style: const TextStyle(color: Colors.black, fontFamily: 'Georgia'),
       keyboardType: TextInputType.text,
       controller: _namaTextboxController,
       validator: (value) {
@@ -57,18 +93,30 @@ class _RegistrasiPageState extends State<RegistrasiPage> {
     );
   }
 
-//Membuat Textbox email
+  // Membuat Textbox email
   Widget _emailTextField() {
     return TextFormField(
-      decoration: const InputDecoration(labelText: "Email"),
+      decoration: InputDecoration(
+        labelText: "Email",
+        labelStyle: const TextStyle(color: Colors.black, fontFamily: 'Georgia'),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey),
+        ),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.black),
+        ),
+        errorStyle: const TextStyle(
+          color: Color.fromARGB(255, 181, 38, 27), // Warna pesan error
+          fontFamily: 'Georgia', // Mengubah font pesan error menjadi Georgia
+        ),
+      ),
+      style: const TextStyle(color: Colors.black, fontFamily: 'Georgia'),
       keyboardType: TextInputType.emailAddress,
       controller: _emailTextboxController,
       validator: (value) {
-//validasi harus diisi
         if (value!.isEmpty) {
           return 'Email harus diisi';
         }
-//validasi email
         Pattern pattern =
             r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
         RegExp regex = RegExp(pattern.toString());
@@ -80,15 +128,27 @@ class _RegistrasiPageState extends State<RegistrasiPage> {
     );
   }
 
-//Membuat Textbox password
+  // Membuat Textbox password
   Widget _passwordTextField() {
     return TextFormField(
-      decoration: const InputDecoration(labelText: "Password"),
-      keyboardType: TextInputType.text,
+      decoration: InputDecoration(
+        labelText: "Password",
+        labelStyle: const TextStyle(color: Colors.black, fontFamily: 'Georgia'),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey),
+        ),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.black),
+        ),
+        errorStyle: const TextStyle(
+          color: Color.fromARGB(255, 181, 38, 27), // Warna pesan error
+          fontFamily: 'Georgia', // Mengubah font pesan error menjadi Georgia
+        ),
+      ),
+      style: const TextStyle(color: Colors.black, fontFamily: 'Georgia'),
       obscureText: true,
       controller: _passwordTextboxController,
       validator: (value) {
-//jika karakter yang dimasukkan kurang dari 6 karakter
         if (value!.length < 6) {
           return "Password harus diisi minimal 6 karakter";
         }
@@ -97,14 +157,26 @@ class _RegistrasiPageState extends State<RegistrasiPage> {
     );
   }
 
-//membuat textbox Konfirmasi Password
+  // Membuat textbox Konfirmasi Password
   Widget _passwordKonfirmasiTextField() {
     return TextFormField(
-      decoration: const InputDecoration(labelText: "Konfirmasi Password"),
-      keyboardType: TextInputType.text,
+      decoration: InputDecoration(
+        labelText: "Konfirmasi Password",
+        labelStyle: const TextStyle(color: Colors.black, fontFamily: 'Georgia'),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey),
+        ),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.black),
+        ),
+        errorStyle: const TextStyle(
+          color: Color.fromARGB(255, 181, 38, 27), // Warna pesan error
+          fontFamily: 'Georgia', // Mengubah font pesan error menjadi Georgia
+        ),
+      ),
+      style: const TextStyle(color: Colors.black, fontFamily: 'Georgia'),
       obscureText: true,
       validator: (value) {
-//jika inputan tidak sama dengan password
         if (value != _passwordTextboxController.text) {
           return "Konfirmasi Password tidak sama";
         }
@@ -113,16 +185,23 @@ class _RegistrasiPageState extends State<RegistrasiPage> {
     );
   }
 
-//Membuat Tombol Registrasi
+  // Membuat Tombol Registrasi
   Widget _buttonRegistrasi() {
     return ElevatedButton(
-        child: const Text("Registrasi"),
-        onPressed: () {
-          var validate = _formKey.currentState!.validate();
-          if (validate) {
-            if (!_isLoading) _submit();
-          }
-        });
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.black, // Background color
+      ),
+      child: const Text(
+        "Registrasi",
+        style: TextStyle(color: Colors.white, fontFamily: 'Georgia'),
+      ),
+      onPressed: () {
+        var validate = _formKey.currentState!.validate();
+        if (validate) {
+          if (!_isLoading) _submit();
+        }
+      },
+    );
   }
 
   void _submit() {

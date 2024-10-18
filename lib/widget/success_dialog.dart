@@ -51,7 +51,8 @@ class SuccessDialog extends StatelessWidget {
             style: TextStyle(
                 fontSize: 24.0,
                 fontWeight: FontWeight.w700,
-                color: Colors.green),
+                color: Color.fromARGB(255, 150, 150, 150),
+                fontFamily: 'Georgia'),
           ),
           const SizedBox(height: 16.0),
           Text(

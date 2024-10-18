@@ -17,27 +17,36 @@ class _PemanduWisataPageState extends State<PemanduWisataPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('List Pemandu Wisata'),
+        title: const Text(
+          'List Pemandu Wisata',
+          style: TextStyle(
+              fontFamily: 'Georgia', color: Colors.white, fontSize: 20),
+        ),
+        backgroundColor: const Color.fromARGB(255, 125, 125, 125),
         actions: [
           Padding(
-              padding: const EdgeInsets.only(right: 20.0),
-              child: GestureDetector(
-                child: const Icon(Icons.add, size: 26.0),
-                onTap: () async {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PemanduWisataForm()));
-                },
-              ))
+            padding: const EdgeInsets.only(right: 20.0),
+            child: GestureDetector(
+              child: const Icon(Icons.add, size: 26.0, color: Colors.white),
+              onTap: () async {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PemanduWisataForm()));
+              },
+            ),
+          )
         ],
       ),
       drawer: Drawer(
         child: ListView(
           children: [
             ListTile(
-              title: const Text('Logout'),
-              trailing: const Icon(Icons.logout),
+              title: const Text(
+                'Logout',
+                style: TextStyle(fontFamily: 'Georgia', color: Colors.black),
+              ),
+              trailing: const Icon(Icons.logout, color: Colors.black),
               onTap: () async {
                 await LogoutBloc.logout().then((value) => {
                       Navigator.of(context).pushAndRemoveUntil(
@@ -85,22 +94,40 @@ class ItemPemanduWisata extends StatelessWidget {
   final PemanduWisata pemanduWisata;
   const ItemPemanduWisata({Key? key, required this.pemanduWisata})
       : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => PemanduWisataDetail(
-                      pemanduWisata: pemanduWisata,
-                    )));
-      },
-      child: Card(
+    return Card(
+      color: const Color.fromARGB(255, 220, 220, 220),
+      elevation: 4.0,
+      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
         child: ListTile(
-          title: Text(pemanduWisata.guide!),
-          subtitle: Text(pemanduWisata.rating.toString()),
-          trailing: Text(pemanduWisata.guide!),
+          title: Text(
+            pemanduWisata.guide!,
+            style: const TextStyle(
+              color: Colors.black,
+              fontFamily: 'Georgia',
+              fontSize: 18.0,
+            ),
+          ),
+          subtitle: Text(
+            "Rating: ${pemanduWisata.rating}",
+            style: const TextStyle(
+              color: Color.fromARGB(255, 80, 80, 80),
+              fontFamily: 'Georgia',
+            ),
+          ),
+          trailing: const Icon(Icons.arrow_forward_ios, color: Colors.black),
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => PemanduWisataDetail(
+                          pemanduWisata: pemanduWisata,
+                        )));
+          },
         ),
       ),
     );
