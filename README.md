@@ -2,7 +2,9 @@
 
 Responsi 1 Praktikum Pemrograman Mobile.
 
-## SS Aplikasi
+## Screenshot Aplikasi Manajemen Pariwisata (Tabel pemandu_wisata)
+
+## Penjelasan Program ada di file PDF
 
 1. Halaman Login
 - Halaman login data terisi
